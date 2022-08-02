@@ -1,17 +1,15 @@
 import fetchs from '../utils/fetchs';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AddProductForm from './AddProductForm';
 import InputField from './InputField';
 const Login = ({ sendMessage }) => {
-  const user = useRef(null);
-  const pass = useRef(null);
+  const [inputValue, setInputValue] = useState({ usuario: '', password: '' });
+  const { usuario, password } = inputValue;
+
   let navigate = useNavigate();
 
   const handleLogin = async () => {
-    const usuario = user.current.value;
-    const password = pass.current.value;
-
+    console.log(inputValue);
     try {
       const user = await fetchs.login({ usuario, password });
       console.log(user);
@@ -23,25 +21,35 @@ const Login = ({ sendMessage }) => {
       sendMessage('error', error.response.data.mensaje);
     }
   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <div>
-      <AddProductForm />
-      <InputField 
-        
+      <div>
+        <InputField
+          type="text"
+          placeholder="Ingrese su nombre"
+          label="Usuario"
+          onChange={handleChange}
+          value={usuario}
+          name="usuario"
+        />
+        <InputField
+          type="password"
+          placeholder="Ingrese su password"
+          label="Password"
+          onChange={handleChange}
+          value={password}
+          name="password"
+        />
 
-
-      />
-      <label>
-        Usuario:
-        <input ref={user} type="text" />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input ref={pass} type="password" />
-      </label>
-      <br />
-      <input type="button" value="Login" onClick={handleLogin} />
+        <input type="button" value="Login" onClick={handleLogin} />
+      </div>
       <p>
         Aun no tiene una cuenta?
         <Link to="/registro">Registrese!</Link>
