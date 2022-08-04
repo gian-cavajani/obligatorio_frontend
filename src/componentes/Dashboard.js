@@ -2,6 +2,10 @@ import fetchs from '../utils/fetchs';
 import Listado from './Listado';
 import Transaccion from './Transaccion';
 import Cargando from './Cargando';
+import funciones from '../utils/funciones';
+import Monto from './Monto';
+import Graficos from './Graficos';
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,41 +16,39 @@ const Dashboard = ({ sendMessage }) => {
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    const apiKey = localStorage.getItem('usuarioKey');
-    const userId = localStorage.getItem('usuarioId'); //873
-    if (apiKey && userId) {
-      const fetchData = async () => {
-        try {
-          const monedas = await fetchs.monedas();
-          const transacciones = await fetchs.transacciones(userId);
-          dispatch(cargarMonedas(monedas.monedas));
-          dispatch(cargarTransacciones(transacciones.transacciones));
-          setCarga(false);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchData();
+    const storage = funciones.getStorage();
+    if (!storage.key || !storage.id) {
+      console.log('sin api ni user');
+      navigate('/');
     } else {
-      navigate('/login');
+      fetchs.monedas().then((m) => {
+        dispatch(cargarMonedas(m.monedas));
+      });
+      fetchs
+        .transacciones(storage.id)
+        .then((t) => {
+          dispatch(cargarTransacciones(t.transacciones));
+        })
+        .then((t) => setCarga(false));
     }
-  }, []);
+  }, [carga]);
 
-  const handleMonedas = async () => {};
-  const handleTransacciones = async () => {
-    const trans = await fetchs.transacciones(873);
-    console.log(trans);
+  const recargarPag = () => {
+    setCarga(true);
   };
-
   if (carga) {
     return <Cargando />;
   }
   return (
-    <div>
-      Dashboard
-      <Transaccion sendMessage={sendMessage} />
-      <Listado />
+    <div className="">
+      <button onClick={recargarPag}>Recargar valores de monedas</button>
+      <div className="row mt-3">
+        <Transaccion sendMessage={sendMessage} />
+        <Listado />
+      </div>
+      <Graficos sendMessage={sendMessage} />
     </div>
   );
 };

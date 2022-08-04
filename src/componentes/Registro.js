@@ -43,8 +43,6 @@ const Registro = ({ sendMessage }) => {
           idDepartamento,
           idCiudad,
         });
-        localStorage.setItem('usuarioKey', user.apiKey);
-        console.log(user);
         sendMessage('ok', 'Registro exitoso');
       } catch (error) {
         sendMessage('error', error.response.data.mensaje);
@@ -53,22 +51,35 @@ const Registro = ({ sendMessage }) => {
   };
 
   return (
-    <div>
-      <label>
+    <div className="form-row col-6">
+      <h3 className="mt-3">Ingrese sus datos </h3>
+      <label className="form-group mt-4 col-12">
         Usuario:
-        <input ref={user} type="text" />
+        <input
+          placeholder="Ingrese su nombre"
+          className="form-control "
+          ref={user}
+          type="text"
+        />
       </label>
-      <br />
-      <label>
+      <label className="form-group col-12">
         Password:
-        <input ref={pass} type="password" />
+        <input
+          placeholder="Ingrese su password"
+          className="form-control"
+          ref={pass}
+          type="password"
+        />
       </label>
       <br />
 
-      <label>
+      <label className="form-group  col-12">
         Departamento:
-        {/* <Select lista={departamentos} handle={handleDepartamento} ref={depar}/> */}
-        <select onChange={handleDepartamento} ref={depar} defaultValue="">
+        <select
+          onChange={handleDepartamento}
+          ref={depar}
+          defaultValue=""
+          className="form-control ">
           <option disabled value="">
             Elija un departamento
           </option>
@@ -81,10 +92,9 @@ const Registro = ({ sendMessage }) => {
       </label>
       <br />
 
-      <label>
+      <label className="form-group col-12">
         Ciudad
-        {/* <Select ref={ciud} lista={ciudades} /> */}
-        <select ref={ciud} defaultValue="">
+        <select ref={ciud} defaultValue="" className="form-control">
           <option disabled={true} value="">
             Elija una ciudad
           </option>
@@ -97,10 +107,15 @@ const Registro = ({ sendMessage }) => {
       </label>
       <br />
 
-      <input type="button" value="Registrarse" onClick={handleRegistro} />
+      <input
+        className="btn btn-primary mt-4"
+        type="button"
+        value="Registrarse"
+        onClick={handleRegistro}
+      />
       <p>
         Ya tiene una cuenta?
-        <Link to="/login">Login!</Link>
+        <Link to="/">Login!</Link>
       </p>
     </div>
   );

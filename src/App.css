@@ -1,12 +1,12 @@
 .App {
   text-align: center;
 }
+
 .ok,
 .error {
-  position: absolute;
-  top: 40%;
-  left: 40%;
-
+  /* position: sticky; */
+  left: 30%;
+  top: 30%;
   font-size: 20px;
   border-style: solid;
   border-radius: 5px;
@@ -21,7 +21,6 @@
 .error {
   color: red;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -47,7 +46,25 @@
 .App-link {
   color: #61dafb;
 }
-
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 220px;
+  height: 220px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -55,4 +72,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#growth {
+  height: 300px;
+  overflow-y: scroll;
 }

@@ -2,6 +2,7 @@ import fetchs from '../utils/fetchs';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InputField from './InputField';
+import funciones from '../utils/funciones';
 const Login = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState({ usuario: '', password: '' });
   const { usuario, password } = inputValue;
@@ -12,11 +13,8 @@ const Login = ({ sendMessage }) => {
     console.log(inputValue);
     try {
       const user = await fetchs.login({ usuario, password });
-      console.log(user);
-      localStorage.setItem('usuarioKey', user.apiKey);
-      localStorage.setItem('usuarioId', user.id);
+      funciones.setStorage(user.id, user.apiKey);
       navigate('/dash');
-      //redirect
     } catch (error) {
       sendMessage('error', error.response.data.mensaje);
     }
@@ -29,8 +27,9 @@ const Login = ({ sendMessage }) => {
     }));
   };
   return (
-    <div>
-      <div>
+    <div className="form-row col-6">
+      <h3 className="mt-3">Inicie sesion</h3>
+      <div className="mt-4">
         <InputField
           type="text"
           placeholder="Ingrese su nombre"
@@ -48,7 +47,12 @@ const Login = ({ sendMessage }) => {
           name="password"
         />
 
-        <input type="button" value="Login" onClick={handleLogin} />
+        <input
+          className="btn btn-primary mt-4"
+          type="button"
+          value="Login"
+          onClick={handleLogin}
+        />
       </div>
       <p>
         Aun no tiene una cuenta?
