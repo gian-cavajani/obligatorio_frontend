@@ -1,13 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import funciones from '../utils/funciones';
 import GraficoMoneda from './GraficoMoneda';
 import MontoPorMoneda from './MontoPorMoneda';
-import Notification from './Notification';
 
-const BuscarMoneda = ({ trans, monedas, sendMessage, className }) => {
+const BuscarMoneda = ({ trans, monedas, sendMessage }) => {
   const [lista, setLista] = useState([]);
-  const [nombreMoneda, setNombreMoneda] = useState('');
+  const [nombreMoneda, setNombreMoneda] = useState({});
   const [monto, setMonto] = useState({});
   const moneda = useRef(null);
 
@@ -19,7 +17,10 @@ const BuscarMoneda = ({ trans, monedas, sendMessage, className }) => {
 
   const handleBusqueda = () => {
     const id = moneda.current.value;
-    setNombreMoneda(funciones.nombreMoneda(id, monedas));
+    setNombreMoneda({
+      nombre: funciones.nombreMoneda(id, monedas),
+      img: funciones.imgMoneda(id, monedas),
+    });
     const listado = funciones.buscarTrans(id, trans);
     setLista(listado);
     if (listado.length === 0) {
@@ -29,8 +30,8 @@ const BuscarMoneda = ({ trans, monedas, sendMessage, className }) => {
   };
 
   return (
-    <div className="card mt-4">
-      <div className="card-header ">
+    <section className="card mt-4">
+      <article className="card-header ">
         <h4 className="card-title">
           Busque sus transacciones con {'  '}
           <select defaultValue="" ref={moneda}>
@@ -45,16 +46,16 @@ const BuscarMoneda = ({ trans, monedas, sendMessage, className }) => {
           </select>{' '}
           <input type="button" onClick={handleBusqueda} value="Buscar" />
         </h4>
-      </div>
+      </article>
       {lista.length > 0 ? (
-        <div>
-          <GraficoMoneda lista={lista} nombreMoneda={nombreMoneda} />
+        <article>
+          <GraficoMoneda lista={lista} nombreMoneda={nombreMoneda.nombre} />
           <MontoPorMoneda monto={monto} nombreMoneda={nombreMoneda} />
-        </div>
+        </article>
       ) : (
-        <div></div>
+        <article></article>
       )}
-    </div>
+    </section>
   );
 };
 

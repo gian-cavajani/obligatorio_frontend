@@ -1,25 +1,33 @@
 .App {
   text-align: center;
+  z-index: 1;
 }
 
 .ok,
 .error {
-  /* position: sticky; */
-  left: 30%;
-  top: 30%;
+  position: fixed;
+  z-index: 100;
+  /* left: 42%; */
+  top: 50%;
   font-size: 20px;
-  border-style: solid;
+  border-style: 2px, solid;
   border-radius: 5px;
   padding: 10px;
-  margin-bottom: 10px;
-
-  background: lightgrey;
+}
+.navbar {
+  background-color: #c2c2c2;
+}
+.navbar-brand {
+  height: 30px;
 }
 .ok {
+  background: #d4edda;
   color: rgb(35, 168, 35);
 }
+
 .error {
-  color: red;
+  background: #f8d7da;
+  color: #80151e;
 }
 .App-logo {
   height: 40vmin;

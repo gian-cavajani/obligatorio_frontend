@@ -101,6 +101,13 @@ const nombreMoneda = (id, monedas) => {
   return moneda.nombre;
 };
 
+const imgMoneda = (id, monedas) => {
+  const moneda = buscarMoneda(id, monedas);
+  if (!moneda) {
+    return 'Comodin';
+  }
+  return 'https://crypto.develotion.com/imgs/' + moneda.imagen;
+};
 const buscarTrans = (moneda, trans) => {
   const arrTrans = trans.filter((t) => t.moneda == moneda);
   return arrTrans;
@@ -117,4 +124,5 @@ export default {
   nombreMoneda,
   buscarTrans,
   nombreMonedaTr,
+  imgMoneda,
 };

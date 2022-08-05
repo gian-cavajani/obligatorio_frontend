@@ -48,7 +48,6 @@ const GraficoMoneda = ({ lista, nombreMoneda }) => {
           },
         ],
       }}>
-      GraficoMoneda
     </Bar>
   );
 };

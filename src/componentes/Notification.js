@@ -1,34 +1,10 @@
-// const Notification = ({ message }) => {
-//   if (message.code === null) {
-//     return null;
-//   } else if (message.code === 'error') {
-//     return (
-
-//         <div className="toast" aria-live="assertive" aria-atomic="true">
-//           <div className="toast-header">
-//             <strong className="me-auto">Bootstrap</strong>
-//             <small>11 mins ago</small>
-//             <button
-//               type="button"
-//               className="btn-close"
-//               data-bs-dismiss="toast"
-//               aria-label="Close"></button>
-//           </div>
-//           <div className="toast-body">
-//             Hello, world! This is a toast message.
-//           </div>
-//         </div>
-
-//     );
-//   }
-// };
 const Notification = ({ message }) => {
   if (message.code === null) {
     return null;
   } else if (message.code === 'error') {
-    return <div className="error ">{message.message}</div>;
+    return <div className="error row col-2 offset-5 text-center">{message.message}</div>;
   } else if (message.code === 'ok') {
-    return <div className="ok ">{message.message}</div>;
+    return <div className="ok row col-2 offset-5">{message.message}</div>;
   }
 };
 

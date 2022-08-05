@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import funciones from '../utils/funciones';
 import GraficoMonto from './GraficoMonto';
-import GraficoMonto2 from './GraficoMonto2';
+import GraficoMontoParcial from './GraficoMontoParcial';
 import BuscarMoneda from './BuscarMoneda';
 import GraficoTotal from './GraficoTotal';
+import Vacio from './Vacio';
 
 const Graficos = ({ sendMessage }) => {
   const trans = useSelector((state) => state.transacciones.transacciones);
@@ -22,38 +23,38 @@ const Graficos = ({ sendMessage }) => {
 
   const clase = 'col-4 my-4';
   return (
-    <div className="row">
+    <section className="row">
       {compras > 0 ? (
-        <div className={clase}>
-          <GraficoMonto2
-            titulo="Compras por Moneda"
+        <article className={clase}>
+          <GraficoMontoParcial
+            titulo="Montos comprados por moneda"
             montos={dineroCompras}
             monedas={monedas}
             inversion={compras}
             color={'rgba(255, 99, 132'}
           />
-        </div>
+        </article>
       ) : (
-        <div className="d-none"></div>
+        <article className="d-none"></article>
       )}
       {ventas > 0 ? (
-        <div className={clase}>
-          <GraficoMonto2
-            titulo="Ventas por Moneda"
+        <article className={clase}>
+          <GraficoMontoParcial
+            titulo="Montos vendidos por moneda"
             montos={dineroVentas}
             monedas={monedas}
             inversion={ventas}
             color={'rgba(75, 192, 192'}
           />
-        </div>
+        </article>
       ) : (
-        <div className="d-none"></div>
+        <Vacio />
       )}
-      <div className={clase}>
+      <article className={clase}>
         <GraficoTotal inversion={{ ventas, compras }} />
-      </div>
+      </article>
       {trans.length > 0 ? (
-        <div className="col-12">
+        <article className="col-12">
           <GraficoMonto
             titulo="Inversion Total"
             montos={{ dineroVentas2, dineroCompras2 }}
@@ -63,19 +64,19 @@ const Graficos = ({ sendMessage }) => {
             color2={'rgba(255, 99, 132'}
             color1={'rgba(75, 192, 192'}
           />
-        </div>
+        </article>
       ) : (
-        <div className="d-none"></div>
+        <Vacio />
       )}
-      <div className="col-12">
+      <article className="col-12 mb-4">
         <BuscarMoneda
           monedas={monedas}
           trans={trans}
           sendMessage={sendMessage}
           className="col-8 "
         />
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 

@@ -1,10 +1,10 @@
 import fetchs from '../utils/fetchs';
 import funciones from '../utils/funciones';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { sumarTransaccion } from '../features/transaccionesSlice';
-import { InputGroup } from 'react-bootstrap';
+import CardHeader from './CardHeader';
+import CardFooter from './CardFooter';
 
 const Transaccion = ({ sendMessage }) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Transaccion = ({ sendMessage }) => {
         idUsuario: localStorage.getItem('usuarioId'),
         tipoOperacion: tipo,
         moneda: monedaId,
-        cantidad: quan,
+        cantidad: parseFloat(quan).toFixed(),
         valorActual: laMoneda.cotizacion,
       };
       try {
@@ -51,6 +51,7 @@ const Transaccion = ({ sendMessage }) => {
 
         const tran = await fetchs.nuevaTrans(transaccion);
 
+        //la api recibe diferentes nombres de propiedades a las que devuelve
         transaccion.valor_actual = transaccion.valorActual;
         delete transaccion.valorActual;
         transaccion.tipo_operacion = transaccion.tipoOperacion;
@@ -68,11 +69,9 @@ const Transaccion = ({ sendMessage }) => {
   };
 
   return (
-    <div className="card col-3 mx-3 p-0">
-      <div className="card-header ">
-        <h5 className="card-title">Nueva transaccion: </h5>
-      </div>
-      <div className="card-body">
+    <section className="card col-3 mx-3 p-0 shadow rounded">
+      <CardHeader title="Nueva transaccion:" />
+      <article className="card-body">
         <label>
           Elija una moneda:
           <select defaultValue="" ref={moneda} className="form-control px-4">
@@ -93,7 +92,7 @@ const Transaccion = ({ sendMessage }) => {
           </label>
           <div className="mt-4">
             <input
-              className="btn btn-danger mx-2"
+              className="btn btn-outline-danger mx-2"
               type="button"
               value="comprar"
               onClick={() => {
@@ -101,7 +100,7 @@ const Transaccion = ({ sendMessage }) => {
               }}
             />
             <input
-              className="btn btn-primary mx-2"
+              className="btn btn-outline-info mx-2"
               type="button"
               value="vender"
               onClick={() => {
@@ -110,8 +109,12 @@ const Transaccion = ({ sendMessage }) => {
             />
           </div>
         </div>
-      </div>
-    </div>
+      </article>
+      <CardFooter
+        title=""
+        subtitle="Recargue el valor de las monedas para actualizar sus precios"
+      />
+    </section>
   );
 };
 

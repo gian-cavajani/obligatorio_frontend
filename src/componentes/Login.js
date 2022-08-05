@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InputField from './InputField';
 import funciones from '../utils/funciones';
+import CardHeader from './CardHeader';
+import CardFooter from './CardFooter';
+
 const Login = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState({ usuario: '', password: '' });
   const { usuario, password } = inputValue;
@@ -10,7 +13,6 @@ const Login = ({ sendMessage }) => {
   let navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log(inputValue);
     try {
       const user = await fetchs.login({ usuario, password });
       funciones.setStorage(user.id, user.apiKey);
@@ -19,6 +21,7 @@ const Login = ({ sendMessage }) => {
       sendMessage('error', error.response.data.mensaje);
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputValue((prev) => ({
@@ -26,13 +29,14 @@ const Login = ({ sendMessage }) => {
       [name]: value,
     }));
   };
+  
   return (
-    <div className="form-row col-6">
-      <h3 className="mt-3">Inicie sesion</h3>
-      <div className="mt-4">
+    <section className="card col-6 shadow rounded offset-3 mt-5">
+      <CardHeader title="Inicie sesion:" />
+      <article className="card-body">
         <InputField
           type="text"
-          placeholder="Ingrese su nombre"
+          placeholder="Ingrese su nombre de usuario"
           label="Usuario"
           onChange={handleChange}
           value={usuario}
@@ -53,12 +57,12 @@ const Login = ({ sendMessage }) => {
           value="Login"
           onClick={handleLogin}
         />
-      </div>
-      <p>
-        Aun no tiene una cuenta?
-        <Link to="/registro">Registrese!</Link>
-      </p>
-    </div>
+      </article>
+      <CardFooter
+        title="Aun no tiene una cuenta?"
+        subtitle={<Link to="/registro">Registrese!</Link>}
+      />
+    </section>
   );
 };
 

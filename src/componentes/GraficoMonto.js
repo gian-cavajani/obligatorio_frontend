@@ -8,6 +8,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import CardFooter from './CardFooter';
+import CardHeader from './CardHeader';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,9 +28,10 @@ const GraficoMonto = ({
   inversion,
 }) => {
   const { dineroVentas2, dineroCompras2 } = montos;
+
   return (
-    <div className="card">
-      <div className="card-body">
+    <section className="card shadow rounded">
+      <article className="card-body">
         <Bar
           options={{
             responsive: true,
@@ -54,12 +57,9 @@ const GraficoMonto = ({
             ],
           }}
         />
-      </div>
-      <div className="card-footer">
-        <h5 className="card-title">{titulo}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{inversion}</h6>
-      </div>
-    </div>
+      </article>
+      <CardFooter title={titulo} subtitle={`$${inversion}`} />
+    </section>
   );
 };
 

@@ -10,7 +10,6 @@ import Registro from './componentes/Registro';
 import Notification from './componentes/Notification';
 import Login from './componentes/Login';
 import Dashboard from './componentes/Dashboard';
-import Menu from './componentes/Menu';
 
 function App() {
   const [message, setMessage] = useState({ code: null, message: null });
@@ -26,22 +25,20 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div>
       <Provider store={store}>
         <Notification message={message} />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Menu />}>
-              <Route path="/" element={<Login sendMessage={sendMessage} />} />
-              <Route
-                path="/registro"
-                element={<Registro sendMessage={sendMessage} />}
-              />
-              <Route
-                path="/dash"
-                element={<Dashboard sendMessage={sendMessage} />}
-              />
-            </Route>
+            <Route path="/" element={<Login sendMessage={sendMessage} />} />
+            <Route
+              path="/registro"
+              element={<Registro sendMessage={sendMessage} />}
+            />
+            <Route
+              path="/dash"
+              element={<Dashboard sendMessage={sendMessage} />}
+            />
           </Routes>
         </BrowserRouter>
       </Provider>

@@ -3,6 +3,8 @@ import fetchs from '../utils/fetchs';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from './InputField';
+import CardHeader from './CardHeader';
+import CardFooter from './CardFooter';
 
 const Registro = ({ sendMessage }) => {
   const [ciudades, setCiudades] = useState([]);
@@ -51,73 +53,72 @@ const Registro = ({ sendMessage }) => {
   };
 
   return (
-    <div className="form-row col-6">
-      <h3 className="mt-3">Ingrese sus datos </h3>
-      <label className="form-group mt-4 col-12">
-        Usuario:
-        <input
-          placeholder="Ingrese su nombre"
-          className="form-control "
-          ref={user}
-          type="text"
-        />
-      </label>
-      <label className="form-group col-12">
-        Password:
-        <input
-          placeholder="Ingrese su password"
-          className="form-control"
-          ref={pass}
-          type="password"
-        />
-      </label>
-      <br />
-
-      <label className="form-group  col-12">
-        Departamento:
-        <select
-          onChange={handleDepartamento}
-          ref={depar}
-          defaultValue=""
-          className="form-control ">
-          <option disabled value="">
-            Elija un departamento
-          </option>
-          {departamentos.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.nombre}
+    <section className="card col-6 shadow rounded offset-3 mt-5">
+      <CardHeader title="Sign up: " />
+      <article className="card-body">
+        <label className="form-group col-5">
+          Usuario:
+          <input
+            placeholder="Ingrese su nombre"
+            className="form-control "
+            ref={user}
+            type="text"
+          />
+        </label>
+        <label className="form-group col-5 offset-1">
+          Password:
+          <input
+            placeholder="Ingrese su password"
+            className="form-control"
+            ref={pass}
+            type="password"
+          />
+        </label>
+        <br />
+        <label className="form-group  col-11">
+          Departamento:
+          <select
+            onChange={handleDepartamento}
+            ref={depar}
+            defaultValue=""
+            className="form-control ">
+            <option disabled value="">
+              Elija un departamento
             </option>
-          ))}
-        </select>
-      </label>
-      <br />
-
-      <label className="form-group col-12">
-        Ciudad
-        <select ref={ciud} defaultValue="" className="form-control">
-          <option disabled={true} value="">
-            Elija una ciudad
-          </option>
-          {ciudades.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.nombre}
+            {departamentos.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.nombre}
+              </option>
+            ))}
+          </select>
+        </label>
+        <br />
+        <label className="form-group col-11">
+          Ciudad
+          <select ref={ciud} defaultValue="" className="form-control">
+            <option disabled={true} value="">
+              Elija una ciudad
             </option>
-          ))}
-        </select>
-      </label>
-      <br />
-
-      <input
-        className="btn btn-primary mt-4"
-        type="button"
-        value="Registrarse"
-        onClick={handleRegistro}
+            {ciudades.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.nombre}
+              </option>
+            ))}
+          </select>
+        </label>
+        <br />
+        <input
+          className="btn btn-primary mt-4"
+          type="button"
+          value="Registrarse"
+          onClick={handleRegistro}
+        />
+      </article>
+      <CardFooter
+        title="Ya tiene una cuenta?"
+        subtitle={<Link to="/">Login!</Link>}
       />
-      <p>
-        Ya tiene una cuenta?
-        <Link to="/">Login!</Link>
-      </p>
-    </div>
+    </section>
   );
 };
 
