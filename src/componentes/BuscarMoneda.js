@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import funciones from '../utils/funciones';
 import GraficoMoneda from './GraficoMoneda';
-import MontoPorMoneda from './MontoPorMoneda';
 
 const BuscarMoneda = ({ trans, monedas, sendMessage }) => {
   const [lista, setLista] = useState([]);
@@ -30,7 +29,7 @@ const BuscarMoneda = ({ trans, monedas, sendMessage }) => {
   };
 
   return (
-    <section className="card mt-4">
+    <section className="card mt-4 shadow">
       <article className="card-header ">
         <h4 className="card-title">
           Busque sus transacciones con {'  '}
@@ -49,8 +48,7 @@ const BuscarMoneda = ({ trans, monedas, sendMessage }) => {
       </article>
       {lista.length > 0 ? (
         <article>
-          <GraficoMoneda lista={lista} nombreMoneda={nombreMoneda.nombre} />
-          <MontoPorMoneda monto={monto} nombreMoneda={nombreMoneda} />
+          <GraficoMoneda lista={lista} nombreMoneda={nombreMoneda} />
         </article>
       ) : (
         <article></article>

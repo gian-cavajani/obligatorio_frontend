@@ -52,10 +52,7 @@ const transacciones = async (num) => {
   );
   return res.data;
 };
-// const monedas = async () => {
-//   const res = await axios.get(`${baseUrl}/monedas.php`);
-//   return res.data;
-// };
+
 
 export default {
   registro,

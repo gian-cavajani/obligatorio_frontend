@@ -2,7 +2,7 @@ import funciones from '../utils/funciones';
 
 const Tr = ({ t, monedas }) => {
   return (
-    <tr key={t.id}>
+    <tr>
       <td>
         <img
           className="img-fluid img-thumbnail"

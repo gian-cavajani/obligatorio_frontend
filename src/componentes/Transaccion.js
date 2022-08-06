@@ -37,7 +37,6 @@ const Transaccion = ({ sendMessage }) => {
             }
           }
         } else {
-          console.log(funciones.iaVenta(trans, transaccion));
           if (funciones.iaVenta(trans, transaccion)) {
             if (
               !window.confirm(
@@ -56,7 +55,7 @@ const Transaccion = ({ sendMessage }) => {
         delete transaccion.valorActual;
         transaccion.tipo_operacion = transaccion.tipoOperacion;
         delete transaccion.tipoOperacion;
-
+        transaccion.id = tran.idTransaccion;
         dispatch(sumarTransaccion(transaccion));
 
         sendMessage('ok', tran.mensaje);

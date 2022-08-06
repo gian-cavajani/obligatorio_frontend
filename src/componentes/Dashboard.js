@@ -4,7 +4,6 @@ import Transaccion from './Transaccion';
 import Cargando from './Cargando';
 import funciones from '../utils/funciones';
 import Graficos from './Graficos';
-import CerrarSesion from './CerrarSesion';
 import Nav from './Nav';
 
 import { useEffect, useState } from 'react';
@@ -72,7 +71,6 @@ const Dashboard = ({ sendMessage }) => {
         </div>
         <Graficos sendMessage={sendMessage} />
       </article>
-      <Nav brand="Obligatorio Gianluca Cavajani" />
     </section>
   );
 };

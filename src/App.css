@@ -7,7 +7,6 @@
 .error {
   position: fixed;
   z-index: 100;
-  /* left: 42%; */
   top: 50%;
   font-size: 20px;
   border-style: 2px, solid;

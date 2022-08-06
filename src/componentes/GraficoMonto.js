@@ -9,7 +9,9 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import CardFooter from './CardFooter';
-import CardHeader from './CardHeader';
+import { useSelector } from 'react-redux';
+import funciones from '../utils/funciones';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,17 +22,17 @@ ChartJS.register(
 );
 
 const GraficoMonto = ({
-  montos,
   titulo,
   monedas,
   color1,
   color2,
   inversion,
+  trans,
 }) => {
-  const { dineroVentas2, dineroCompras2 } = montos;
-
+  const dineroCompras2 = funciones.montoPorMoneda2(trans, 1);
+  const dineroVentas2 = funciones.montoPorMoneda2(trans, 2);
   return (
-    <section className="card shadow rounded">
+    <section className="card shadow rounded mb-4 ">
       <article className="card-body">
         <Bar
           options={{

@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+
 import funciones from '../utils/funciones';
 import GraficoMonto from './GraficoMonto';
 import GraficoMontoParcial from './GraficoMontoParcial';
@@ -14,11 +15,8 @@ const Graficos = ({ sendMessage }) => {
   const dineroVentas = funciones.montoPorMoneda(trans, 2);
 
   const { compras, ventas } = funciones.calcularMontoTotal(trans);
-  const dineroCompras2 = funciones.montoPorMoneda2(trans, 1);
-  const dineroVentas2 = funciones.montoPorMoneda2(trans, 2);
-
   if (compras === 0 && ventas === 0) {
-    return <div></div>;
+    return <Vacio />;
   }
 
   const clase = 'col-4 my-4';
@@ -35,7 +33,7 @@ const Graficos = ({ sendMessage }) => {
           />
         </article>
       ) : (
-        <article className="d-none"></article>
+        <Vacio />
       )}
       {ventas > 0 ? (
         <article className={clase}>
@@ -53,11 +51,18 @@ const Graficos = ({ sendMessage }) => {
       <article className={clase}>
         <GraficoTotal inversion={{ ventas, compras }} />
       </article>
+      <article className="col-12 mb-4">
+        <BuscarMoneda
+          monedas={monedas}
+          trans={trans}
+          sendMessage={sendMessage}
+          className="col-8 "
+        />
+      </article>
       {trans.length > 0 ? (
         <article className="col-12">
           <GraficoMonto
             titulo="Inversion Total"
-            montos={{ dineroVentas2, dineroCompras2 }}
             monedas={monedas}
             inversion={ventas - compras}
             trans={trans}
@@ -68,14 +73,6 @@ const Graficos = ({ sendMessage }) => {
       ) : (
         <Vacio />
       )}
-      <article className="col-12 mb-4">
-        <BuscarMoneda
-          monedas={monedas}
-          trans={trans}
-          sendMessage={sendMessage}
-          className="col-8 "
-        />
-      </article>
     </section>
   );
 };
