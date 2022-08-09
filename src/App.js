@@ -10,6 +10,7 @@ import Registro from './componentes/Registro';
 import Notification from './componentes/Notification';
 import Login from './componentes/Login';
 import Dashboard from './componentes/Dashboard';
+import ErrorPage from './componentes/ErrorPage';
 
 function App() {
   const [message, setMessage] = useState({ code: null, message: null });
@@ -39,6 +40,7 @@ function App() {
               path="/dash"
               element={<Dashboard sendMessage={sendMessage} />}
             />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </BrowserRouter>
       </Provider>
